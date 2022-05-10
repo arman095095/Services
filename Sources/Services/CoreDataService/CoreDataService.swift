@@ -29,6 +29,8 @@ public protocol CoreDataServiceProtocol {
                                    predicate: NSPredicate) -> T?
     
     func remove<T: NSManagedObject>(_ model: T)
+    
+    func saveContext()
 }
 
 public final class CoreDataService {
@@ -44,7 +46,7 @@ public final class CoreDataService {
         self.info = info
     }
     
-    public lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         var container: NSPersistentContainer
         switch info {
         case .project(let fileName):
@@ -130,18 +132,8 @@ extension CoreDataService: CoreDataServiceProtocol {
         context.delete(model)
         saveContext()
     }
-}
-
-private extension CoreDataService {
     
-    enum Error: LocalizedError {
-        case fileNotFound
-        case objectModelNotInitiated
-        case entityNotFound
-    }
-    
-    func saveContext() {
-        let context = persistentContainer.viewContext
+    public func saveContext() {
         if context.hasChanges {
             do {
                 try context.save()
@@ -150,6 +142,15 @@ private extension CoreDataService {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+}
+
+private extension CoreDataService {
+    
+    enum Error: LocalizedError {
+        case fileNotFound
+        case objectModelNotInitiated
+        case entityNotFound
     }
     
     var context: NSManagedObjectContext {
