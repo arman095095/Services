@@ -8,7 +8,6 @@
 import Foundation
 import NetworkServices
 import ModelInterfaces
-import Services
 
 public struct ProfileModel: ProfileModelProtocol {
     public var userName: String
@@ -24,7 +23,7 @@ public struct ProfileModel: ProfileModelProtocol {
     public var lastActivity: Date?
     public var postsCount: Int
     
-    init(profile: ProfileNetworkModelProtocol) {
+    public init(profile: ProfileNetworkModelProtocol) {
         self.userName = profile.userName
         self.info = profile.info
         self.sex = profile.sex
@@ -39,7 +38,7 @@ public struct ProfileModel: ProfileModelProtocol {
         self.postsCount = profile.postsCount
     }
     
-    init?(profile: Profile) {
+    public init?(profile: Profile) {
         guard let userName = profile.userName,
               let info = profile.info,
               let sex = profile.sex,

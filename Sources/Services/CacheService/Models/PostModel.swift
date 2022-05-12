@@ -22,8 +22,8 @@ public final class PostModel: PostModelProtocol {
     public var likedByMe: Bool
     public var ownerMe: Bool
     
-    init(model: PostNetworkModelProtocol,
-         owner: ProfileNetworkModelProtocol) {
+    public init(model: PostNetworkModelProtocol,
+                owner: ProfileNetworkModelProtocol) {
         self.userID = model.userID
         self.date = model.date
         self.id = model.id
