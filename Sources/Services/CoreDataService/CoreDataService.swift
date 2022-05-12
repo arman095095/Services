@@ -33,16 +33,16 @@ public protocol CoreDataServiceProtocol {
     func saveContext()
 }
 
-public final class CoreDataService {
+final class CoreDataService {
     
-    public enum Info {
+    enum Info {
         case project(fileName: String)
         case package(fileName: String, fileExtension: String = ".momd")
     }
     
     private let info: Info
     
-    public init(info: Info) {
+    init(info: Info) {
         self.info = info
     }
     

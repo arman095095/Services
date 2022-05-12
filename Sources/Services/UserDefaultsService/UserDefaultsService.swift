@@ -19,9 +19,7 @@ public protocol UserDefaultsServiceProtocol {
     func clear()
 }
 
-public final class UserDefaultsService {
-    public init() { }
-}
+final class UserDefaultsService { }
 
 extension UserDefaultsService: UserDefaultsServiceProtocol {
     public func getData(item: UserDefaultsItem) -> Any? {

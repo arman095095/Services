@@ -31,13 +31,13 @@ public protocol RequestsCacheServiceProtocol {
     func update(profileModel: ProfileModelProtocol, requestID: String)
 }
 
-public final class CacheService {
+final class CacheService {
 
     private let coreDataService: CoreDataServiceProtocol
     private let accountID: String
     
-    public init(coreDataService: CoreDataServiceProtocol,
-                accountID: String) {
+    init(coreDataService: CoreDataServiceProtocol,
+         accountID: String) {
         self.coreDataService = coreDataService
         self.accountID = accountID
     }

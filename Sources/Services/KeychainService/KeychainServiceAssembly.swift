@@ -8,11 +8,9 @@
 import Foundation
 import Swinject
 
-public final class KeychainServiceAssembly: Assembly {
+final class KeychainServiceAssembly: Assembly {
     
-    public init() { }
-
-    public func assemble(container: Container) {
+    func assemble(container: Container) {
         container.register(KeychainServiceProtocol.self) { r in
             KeychainService(configuration: KeychainConfiguration(account: "test"))
         }

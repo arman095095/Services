@@ -8,7 +8,7 @@
 import Foundation
 import Swinject
 
-public final class CoreDataServiceAssembly: Assembly {
+final class CoreDataServiceAssembly: Assembly {
 
     private enum FileNames: String {
         case model = "Model"
@@ -17,10 +17,8 @@ public final class CoreDataServiceAssembly: Assembly {
     private enum FileExtensions: String {
         case model = ".momd"
     }
-    
-    public init() { }
-    
-    public func assemble(container: Container) {
+
+    func assemble(container: Container) {
         container.register(CoreDataServiceProtocol.self) { r in
             CoreDataService(info: .package(fileName: FileNames.model.rawValue,
                                            fileExtension: FileExtensions.model.rawValue))

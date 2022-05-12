@@ -7,12 +7,8 @@
 
 import Foundation
 
-public struct KeychainConfiguration {
+struct KeychainConfiguration {
     let account: String
-    
-    public init(account: String) {
-        self.account = account
-    }
 }
 
 public enum KeychainItem: String {
@@ -28,7 +24,7 @@ public protocol KeychainServiceProtocol: AnyObject {
     func clear() -> KeychainServiceError?
 }
 
-public final class KeychainService {
+final class KeychainService {
     private let account: String
     private var baseQuery: [String: Any] {
         [
@@ -37,8 +33,8 @@ public final class KeychainService {
         ]
     }
 
-    public init(configuration: KeychainConfiguration) {
-        account = configuration.account
+    init(configuration: KeychainConfiguration) {
+        self.account = configuration.account
     }
 }
 

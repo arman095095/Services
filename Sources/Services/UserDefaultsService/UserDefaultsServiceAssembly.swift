@@ -8,11 +8,8 @@
 import Foundation
 import Swinject
 
-public final class UserDefaultsServiceAssembly: Assembly {
-    
-    public init() { }
-
-    public func assemble(container: Container) {
+final class UserDefaultsServiceAssembly: Assembly {
+    func assemble(container: Container) {
         container.register(UserDefaultsServiceProtocol.self) { r in
             UserDefaultsService()
         }
