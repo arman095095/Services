@@ -16,5 +16,6 @@ public final class ServicesAssembly: Assembly {
         KeychainServiceAssembly().assemble(container: container)
         UserDefaultsServiceAssembly().assemble(container: container)
         CoreDataServiceAssembly().assemble(container: container)
+        CacheServiceAssembly().assemble(container: container)
     }
 }

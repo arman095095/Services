@@ -4,7 +4,9 @@
 import PackageDescription
 
 private let dependencies: [Package.Dependency] = [
-    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0")
+    .package(url: "https://github.com/Swinject/Swinject.git", from: "2.8.0"),
+    .package(url: "https://github.com/arman095095/NetworkServices.git", branch: "develop"),
+    .package(url: "https://github.com/arman095095/ModelInterfaces.git", branch: "develop")
 ]
 
 let package = Package(
@@ -22,6 +24,8 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Services",
-            dependencies: [.product(name: "Swinject", package: "Swinject")]),
+            dependencies: [.product(name: "Swinject", package: "Swinject"),
+                           .product(name: "NetworkServices", package: "NetworkServices"),
+                           .product(name: "ModelInterfaces", package: "ModelInterfaces")]),
     ]
 )
