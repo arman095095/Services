@@ -17,7 +17,7 @@ public final class MessageModel: MessageModelProtocol {
     public var id: String
     public var firstOfDate: Bool
     public var sendingStatus: SendingStatus?
-    public var type: MessageType
+    public var type: MessageContentType
     
     public init(senderID: String,
                 adressID: String,
@@ -25,7 +25,7 @@ public final class MessageModel: MessageModelProtocol {
                 id: String,
                 firstOfDate: Bool,
                 sendingStatus: SendingStatus,
-                type: MessageType) {
+                type: MessageContentType) {
         self.senderID = senderID
         self.adressID = adressID
         self.date = date
