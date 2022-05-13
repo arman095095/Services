@@ -22,6 +22,10 @@ public protocol ChatsCacheServiceProtocol {
     func update(profileModel: ProfileModelProtocol, chatID: String)
 }
 
+public protocol MessagesCacheServiceProtocol {
+    func storeMessage(_ message: MessageModelProtocol, for chatID: String)
+}
+
 public protocol RequestsCacheServiceProtocol {
     var storedRequests: [RequestModelProtocol] { get }
     func store(requestModel: RequestModelProtocol)
@@ -40,6 +44,17 @@ final class CacheService {
          accountID: String) {
         self.coreDataService = coreDataService
         self.accountID = accountID
+    }
+}
+
+extension CacheService: MessagesCacheServiceProtocol {
+    func storeMessage(_ messageModel: MessageModelProtocol, for chatID: String) {
+        guard let chat = chatObject(with: chatID) else { return }
+        let message = coreDataService.initModel(Message.self) { messageObject in
+            fillFields(message: messageObject, model: messageModel)
+        }
+        chat.addToMessages(message)
+        coreDataService.saveContext()
     }
 }
 
@@ -76,8 +91,7 @@ extension CacheService: ChatsCacheServiceProtocol {
     }
     
     public func chat(with id: String) -> ChatModelProtocol? {
-        guard let account = object(with: accountID) else { return nil }
-        guard let chat = account.chats?.first(where: { ($0 as? Chat)?.friendID == id }) as? Chat else { return nil }
+        guard let chat = chatObject(with: id) else { return nil }
         return ChatModel(chat: chat)
     }
     
@@ -141,6 +155,12 @@ extension CacheService: RequestsCacheServiceProtocol {
 
 private extension CacheService {
     
+    func chatObject(with chatID: String) -> Chat? {
+        guard let account = object(with: accountID) else { return nil }
+        guard let chat = account.chats?.first(where: { ($0 as? Chat)?.friendID == chatID }) as? Chat else { return nil }
+        return chat
+    }
+    
     func object(with id: String) -> Account? {
         coreDataService.model(Account.self, id: id)
     }
@@ -159,6 +179,25 @@ private extension CacheService {
         profile.online = model.online
         profile.lastActivity = model.lastActivity
         profile.postsCount = Int16(model.postsCount)
+    }
+    
+    func fillFields(message: Message, model: MessageModelProtocol) {
+        message.id = model.id
+        message.senderID = model.senderID
+        message.adressID = model.adressID
+        message.firstOfDate = model.firstOfDate
+        message.sendingStatus = model.sendingStatus?.rawValue
+        message.date = model.date
+        switch model.type {
+        case .text(content: let content):
+            message.textContent = content
+        case .audio(url: let url, duration: let duration):
+            message.audioURL = url
+            message.audioDuration = duration
+        case .image(url: let url, ratio: let ratio):
+            message.photoURL = url
+            message.photoRatio = ratio
+        }
     }
 }
 

@@ -13,6 +13,23 @@
     <entity name="Chat" representedClassName="Chat" syncable="YES" codeGenerationType="class">
         <attribute name="friendID" optional="YES" attributeType="String"/>
         <relationship name="friend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message"/>
+        <relationship name="newMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message"/>
+        <relationship name="notLookedMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message"/>
+        <relationship name="notSendedMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
+        <attribute name="adressID" optional="YES" attributeType="String"/>
+        <attribute name="audioDuration" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="audioURL" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="firstOfDate" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="photoRatio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="photoURL" optional="YES" attributeType="String"/>
+        <attribute name="senderID" optional="YES" attributeType="String"/>
+        <attribute name="sendingStatus" optional="YES" attributeType="String"/>
+        <attribute name="textContent" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES" codeGenerationType="class">
         <attribute name="birthday" attributeType="String"/>
@@ -33,9 +50,10 @@
         <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile"/>
     </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-18" width="128" height="149"/>
-        <element name="Chat" positionX="81" positionY="81" width="128" height="59"/>
-        <element name="Profile" positionX="216.6953125" positionY="1.1953125" width="128" height="209"/>
-        <element name="Request" positionX="90" positionY="90" width="128" height="59"/>
+        <element name="Account" positionX="-455.09765625" positionY="-224.22265625" width="128" height="149"/>
+        <element name="Chat" positionX="-571.81640625" positionY="54.5234375" width="128" height="119"/>
+        <element name="Message" positionX="-226.28125" positionY="296.671875" width="128" height="194"/>
+        <element name="Profile" positionX="229.0546875" positionY="14.97265625" width="128" height="209"/>
+        <element name="Request" positionX="33.9609375" positionY="-387.98828125" width="128" height="59"/>
     </elements>
 </model>
