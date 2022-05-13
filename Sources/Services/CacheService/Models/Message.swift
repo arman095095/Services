@@ -7,6 +7,7 @@
 
 import Foundation
 import ModelInterfaces
+import NetworkServices
 
 public final class MessageModel: MessageModelProtocol {
 
@@ -32,6 +33,25 @@ public final class MessageModel: MessageModelProtocol {
         self.firstOfDate = firstOfDate
         self.sendingStatus = sendingStatus
         self.type = type
+    }
+    
+    public init?(model: MessageNetworkModelProtocol) {
+        guard let date = model.date else { return nil }
+        self.senderID = model.senderID
+        self.adressID = model.adressID
+        self.date = date
+        self.id = model.id
+        self.firstOfDate = false
+        self.sendingStatus = nil
+        if let audioURL = model.audioURL,
+           let duration = model.audioDuration {
+            self.type = .audio(url: audioURL, duration: duration)
+        } else if let photoURL = model.photoURL,
+                  let ratio = model.imageRatio {
+            self.type = .image(url: photoURL, ratio: ratio)
+        } else {
+            self.type = .text(content: model.content)
+        }
     }
     
     public init?(message: Message?) {
