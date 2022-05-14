@@ -8,11 +8,7 @@
 import Foundation
 import Swinject
 
-public typealias ChatsAndRequestsCacheServiceProtocol = ChatsCacheServiceProtocol & RequestsCacheServiceProtocol
-
-public typealias CommunicationCacheServiceProtocol = AccountCacheServiceProtocol & ChatsAndRequestsCacheServiceProtocol
-
-public final class CacheServiceAssembly: Assembly {
+public final class AccountCacheServiceAssembly: Assembly {
 
     public init() { }
     
@@ -25,8 +21,8 @@ public final class CacheServiceAssembly: Assembly {
             else {
                 fatalError(ErrorMessage.dependency.localizedDescription)
             }
-            return CacheService(coreDataService: coreDataService, accountID: userID)
-        }.implements(CommunicationCacheServiceProtocol.self)
+            return AccountCacheService(coreDataService: coreDataService, accountID: userID)
+        }
     }
 }
 
