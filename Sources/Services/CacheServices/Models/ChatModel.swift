@@ -9,30 +9,33 @@ import Foundation
 import ModelInterfaces
 import NetworkServices
 
-public final class ChatModel: ChatModelProtocol {
+public final class ChatModel: ChatModelProtocol, MessangerChatModelProtocol {
     public var friend: ProfileModelProtocol
     public var friendID: String
     public var typing: Bool
-    public var lastMessage: MessageModelProtocol?
-    public var newMessagesCount: Int
     public var notSendedMessages: [MessageModelProtocol]
+    public var messages: [MessageModelProtocol]
+    public var newMessages: [MessageModelProtocol]
+    public var notLookedMessages: [MessageModelProtocol]
     
     public init(friend: ProfileNetworkModelProtocol) {
         self.friend = ProfileModel(profile: friend)
         self.friendID = friend.id
         self.typing = false
-        self.lastMessage = nil
+        self.messages = []
         self.notSendedMessages = []
-        self.newMessagesCount = 0
+        self.newMessages = []
+        self.notLookedMessages = []
     }
     
     public init(friend: ProfileModelProtocol) {
         self.friend = friend
         self.friendID = friend.id
         self.typing = false
-        self.lastMessage = nil
+        self.messages = []
         self.notSendedMessages = []
-        self.newMessagesCount = 0
+        self.newMessages = []
+        self.notLookedMessages = []
     }
     
     public init?(chat: Chat?) {
@@ -43,10 +46,20 @@ public final class ChatModel: ChatModelProtocol {
         self.friendID = friendID
         self.friend = profile
         self.typing = false
-        if let message = chat.messages?.allObjects.last as? Message {
-           self.lastMessage = MessageModel(message: message)
-        }
         self.notSendedMessages = chat.notSendedMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
-        self.newMessagesCount = chat.newMessages?.count ?? 0
+        self.newMessages = chat.newMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
+        self.notLookedMessages = chat.notLookedMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
+        self.messages = chat.messages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
+        
+    }
+}
+
+extension ChatModel {
+    public var newMessagesCount: Int {
+        return newMessages.count
+    }
+    
+    public var lastMessage: MessageModelProtocol? {
+        return messages.last
     }
 }
