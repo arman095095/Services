@@ -14,18 +14,16 @@ public final class ChatModel: ChatModelProtocol {
     public var friendID: String
     public var typing: Bool
     public var lastMessage: MessageModelProtocol?
-    public var newMessages: [MessageModelProtocol]
+    public var newMessagesCount: Int
     public var notSendedMessages: [MessageModelProtocol]
-    public var notLookedMessages: [MessageModelProtocol]
     
     public init(friend: ProfileNetworkModelProtocol) {
         self.friend = ProfileModel(profile: friend)
         self.friendID = friend.id
         self.typing = false
         self.lastMessage = nil
-        self.notLookedMessages = []
         self.notSendedMessages = []
-        self.newMessages = []
+        self.newMessagesCount = 0
     }
     
     public init(friend: ProfileModelProtocol) {
@@ -33,9 +31,8 @@ public final class ChatModel: ChatModelProtocol {
         self.friendID = friend.id
         self.typing = false
         self.lastMessage = nil
-        self.notLookedMessages = []
         self.notSendedMessages = []
-        self.newMessages = []
+        self.newMessagesCount = 0
     }
     
     public init?(chat: Chat?) {
@@ -49,8 +46,7 @@ public final class ChatModel: ChatModelProtocol {
         if let message = chat.messages?.allObjects.last as? Message {
            self.lastMessage = MessageModel(message: message)
         }
-        self.notLookedMessages = chat.notLookedMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
         self.notSendedMessages = chat.notSendedMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
-        self.newMessages = chat.newMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
+        self.newMessagesCount = chat.newMessages?.count ?? 0
     }
 }
