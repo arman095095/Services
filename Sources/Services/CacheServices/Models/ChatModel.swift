@@ -9,7 +9,8 @@ import Foundation
 import ModelInterfaces
 import NetworkServices
 
-public final class ChatModel: ChatModelProtocol, MessangerChatModelProtocol {
+public final class ChatModel: ChatModelProtocol,
+                              MessangerChatModelProtocol {
     public var friend: ProfileModelProtocol
     public var friendID: String
     public var typing: Bool
