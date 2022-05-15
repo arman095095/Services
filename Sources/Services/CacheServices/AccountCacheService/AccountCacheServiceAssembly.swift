@@ -22,7 +22,7 @@ public final class AccountCacheServiceAssembly: Assembly {
                 fatalError(ErrorMessage.dependency.localizedDescription)
             }
             return AccountCacheService(coreDataService: coreDataService, accountID: userID)
-        }
+        }.inObjectScope(.weak)
     }
 }
 
