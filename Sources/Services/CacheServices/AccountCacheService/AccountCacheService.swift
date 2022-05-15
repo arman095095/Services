@@ -54,17 +54,10 @@ private extension AccountCacheService {
     }
     
     func update(account: Account, model: AccountModelProtocol) {
-        
         coreDataService.update(account) { account in
             fillFields(account: account, model: model)
         }
-        guard let profile = account.profile else {
-            coreDataService.initModel(Profile.self) { profile in
-                fillFields(profile: profile,
-                           model: model.profile)
-            }
-            return
-        }
+        guard let profile = account.profile else { return }
         coreDataService.update(profile) { profile in
             fillFields(profile: profile,
                        model: model.profile)

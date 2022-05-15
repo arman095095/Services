@@ -22,6 +22,6 @@ final class CoreDataServiceAssembly: Assembly {
         container.register(CoreDataServiceProtocol.self) { r in
             CoreDataService(info: .package(fileName: FileNames.model.rawValue,
                                            fileExtension: FileExtensions.model.rawValue))
-        }
+        }.inObjectScope(.weak)
     }
 }
