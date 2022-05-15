@@ -48,7 +48,7 @@ public final class ChatModel: ChatModelProtocol,
         self.friend = profile
         self.typing = false
         self.notSendedMessages = chat.notSendedMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
-        self.newMessages = chat.newMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
+        self.newMessages = chat.notReadMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
         self.notLookedMessages = chat.notLookedMessages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
         self.messages = chat.messages?.compactMap { MessageModel(message: $0 as? Message) } ?? []
         
