@@ -9,7 +9,6 @@ import Foundation
 import ModelInterfaces
 
 public protocol ChatsCacheServiceProtocol {
-    var firstMessage: MessageModelProtocol? { get }
     var lastMessage: MessageModelProtocol? { get }
     func storeRecievedMessage(_ message: MessageModelProtocol)
     func removeAllNotLooked()
@@ -30,11 +29,9 @@ public final class ChatsCacheService {
 
 extension ChatsCacheService: ChatsCacheServiceProtocol {
     public var lastMessage: MessageModelProtocol? {
-        MessageModel(message: chat?.messages?.allObjects.last as? Message)
-    }
-    
-    public var firstMessage: MessageModelProtocol? {
-        MessageModel(message: chat?.messages?.allObjects.first as? Message)
+        guard let messages = chat?.messages as? Set<Message> else { return nil }
+        let sorted = messages.sorted(by: { $0.date! < $1.date! })
+        return MessageModel(message: sorted.last)
     }
     
     public func storeRecievedMessage(_ message: MessageModelProtocol) {
