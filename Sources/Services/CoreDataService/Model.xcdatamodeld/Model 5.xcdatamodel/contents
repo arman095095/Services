@@ -28,7 +28,7 @@
         <attribute name="photoRatio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="photoURL" optional="YES" attributeType="String"/>
         <attribute name="senderID" optional="YES" attributeType="String"/>
-        <attribute name="sendingStatus" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="textContent" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES" codeGenerationType="class">
