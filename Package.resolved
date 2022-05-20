@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/grpc/grpc-ios.git",
       "state" : {
-        "revision" : "abd2d5a4347efa0454606a788678a5d8ec223738",
-        "version" : "1.44.0-grpc"
+        "revision" : "2af4f6e9c2b18beae228f50b1198c641be859d2b",
+        "version" : "1.44.2-grpc"
       }
     },
     {
@@ -87,7 +87,7 @@
       "location" : "https://github.com/arman095095/ModelInterfaces.git",
       "state" : {
         "branch" : "develop",
-        "revision" : "2aab1b449ab3be9795175d34a70ecef4441e4da5"
+        "revision" : "6d70c5ac74fb6d2c18fb8ec05050629d1c55efb6"
       }
     },
     {
@@ -105,7 +105,7 @@
       "location" : "https://github.com/arman095095/NetworkServices.git",
       "state" : {
         "branch" : "develop",
-        "revision" : "2765175b3c5d05663bd72324bb6d3631fe3068e2"
+        "revision" : "07e89b10674ce1c7d6c2ca76f9c7276a297e855a"
       }
     },
     {
